@@ -11,4 +11,4 @@ Needed uploads:
 - Text for TTS production (Kiswahili, Guarani, Suba)
 - Phone mappings (from Nate Robinson)
 
-## Unfortunately, many of our materials were kept on a server that is currently inaccessible due to operational failure. We are working on recovering them. Please contact [nrrobins@cs.cmu.edu](mailto:nrrobins@cs.cmu.edu).
+### Unfortunately, many of our materials were kept on a server that is currently inaccessible due to operational failure. We are working on recovering them. Please contact [nrrobins@cs.cmu.edu](mailto:nrrobins@cs.cmu.edu).
