@@ -8,5 +8,5 @@ Needed uploads:
 - Microsoft TTS code (from Perez Ogayo)
 - Link to ESPNet recipe (from Nate Robinson)
 - Authentic data (or links thereto) with train/dev/eval split (from Nate Robinson)
-- Text for TTS production (Kiswahili, Guarani, Suba) (from Nate Robinson)
+- Text for TTS production (Kiswahili, Guarani, Suba)
 - Phone mappings (from Nate Robinson)
