@@ -10,3 +10,5 @@ Needed uploads:
 - Authentic data (or links thereto) with train/dev/eval split (from Nate Robinson)
 - Text for TTS production (Kiswahili, Guarani, Suba)
 - Phone mappings (from Nate Robinson)
+
+## Unfortunately, many of our materials were kept on a server that is currently inaccessible due to operational failure. We are working on recovering them. Please contact [nrrobins@cs.cmu.edu](mailto:nrrobins@cs.cmu.edu).
