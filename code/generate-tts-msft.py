@@ -1,8 +1,9 @@
-from azure.cognitiveservices.speech import AudioDataStream, SpeechConfig, SpeechSynthesizer
-from azure.cognitiveservices.speech.audio import AudioOutputConfig
-
+# Install Azure SDK -> pip install azure-cognitiveservices-speech
+import time
 from random import seed, randint
-import os, time
+
+from azure.cognitiveservices.speech import SpeechConfig, SpeechSynthesizer
+from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
 '''
 This file can be used to generate speech from Microsoft TTS.
@@ -14,7 +15,7 @@ We will use the generating Kiswahili synthetic speech as an example.
 prompts_file = open("microsoft-tts-prompts", "r")  # the file containing your prompts
 prompts_list = [line.strip() for line in prompts_file.readlines()]
 
-speech_config = SpeechConfig(subscription="6116becea404442bbad269e105997374", region="eastus")
+speech_config = SpeechConfig(subscription="ENTER YOUR KEY", region="eastus")
 
 # Define the voices you want to use. In our case Kiswahili has two dialects and each dialect has 2 voices.
 # language support list source = https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support
@@ -29,9 +30,9 @@ for lang in lang_voice:
         lang_speech_config.speech_synthesis_voice_name = voice
         lang_voice[lang]['configs'].append(lang_speech_config)
 
-# audio_config = AudioOutputConfig(use_default_speaker=True)  # uncomment to hear on your speaker
-audio_config = AudioOutputConfig(
-    filename="file.wav")  # the audio are going to be temporarily stored in a file called file.wav
+# audio_config = AudioOutputConfig(use_default_speaker=True)  # uncomment to hear on your speaker.Don't to save in a file
+# To store audio in a file called file.wav use the config below. Don't uncomment if you want custom names
+# audio_config = AudioOutputConfig( filename="file.wav")
 
 seed(1)
 n_langs = len(lang_voice)
@@ -45,11 +46,13 @@ for i in range(len(prompts_list)):
     voice_idx = randint(0, 1)  # randomly choose a voice
     config = lang_voice[langs[lang_idx]]["configs"][voice_idx]
     voice = lang_voice[langs[lang_idx]]["voices"][voice_idx]
-    synthesizer = SpeechSynthesizer(speech_config=config, audio_config=audio_config)
-    synthesizer.speak_text_async(prompts_list[i])  # generate the audio
-    time.sleep(1)  # wait - there might be delays due to network latency
     no = str(i).zfill(5)
     filename = "swa_" + no
-    os.rename('file.wav', "swa-msft-tts/" + filename + ".wav")
+    audio_config = AudioOutputConfig(filename="swa-msft-tts/" + filename + ".wav")
+    synthesizer = SpeechSynthesizer(speech_config=config, audio_config=audio_config)
+    synthesizer.speak_text_async(prompts_list[i])  # generate the audio
+    time.sleep(1)  # wait - there might be delays and to avoid being blocked.
     voice_no_f.write(no + ", " + voice + "\n")
 voice_no_f.close()
+
+print("Finished the generation loop !")
