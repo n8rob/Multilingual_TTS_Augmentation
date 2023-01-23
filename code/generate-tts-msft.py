@@ -1,4 +1,5 @@
 # Install Azure SDK -> pip install azure-cognitiveservices-speech
+import os
 import time
 from random import seed, randint
 
@@ -40,6 +41,7 @@ langs = list(lang_voice.keys())
 
 # This file will list the mapping of the audio file and the corresponding voice that was used
 voice_no_f = open("sw-msft-voice-number_map.csv", "a+")
+os.mkdir("swa-msft-tts/")  # Folder to save your audio
 
 for i in range(len(prompts_list)):
     lang_idx = randint(0, n_langs - 1)  # randomly choose a dialect
