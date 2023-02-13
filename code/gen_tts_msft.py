@@ -30,11 +30,14 @@ def gen_tts(args):
     with open(args.config_dict, 'r') as f:
         config_dict = json.load(f)
     try:
-        voices = config_dict[args.lang]
+        voice_dict = config_dict[args.lang]
     except KeyError:
         print("WARNING: You may want to add an entry for "\
                 f"{args.lang} to the config file {args.config_dict}")
         raise
+    voices = []
+    for dialect_key in voice_dict: # FIXME add hyperparam weight dialect
+        voices += voice_dict[dialect_key]
     # Read prompts -----------------------------------------------------
     with open(args.prompts_file, 'r') as f:
         prompts = f.readlines()
@@ -42,7 +45,8 @@ def gen_tts(args):
     # Cycle through prompts --------------------------------------------
     no2voice = {}
     no2prompt = {}
-    indices = list(range(len(prompts)))
+    indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+            fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
         print(f"Zero-byte files left: {len(indices)}")
