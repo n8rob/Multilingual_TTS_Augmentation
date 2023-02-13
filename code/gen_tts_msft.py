@@ -62,6 +62,9 @@ def gen_tts(args):
         print()
         __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
                 fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
+        if not indices:
+            print("No more 0-byte files!", flush=True)
+            break
     # Print number voice matches to out csv file -----------------------
     with open(args.out_csv, 'w') as f:
         for no in no2voice:
@@ -97,5 +100,5 @@ if __name__ == "__main__":
     gen_tts(args)
 
     """
-    python3 gen-tts-msft.py --config-dict azure-voices.json --prompts-file tts-prompts/arctic/arctic-kor-lines.txt --wav-dir tts-audio/kor/ --lang ko-KR --out-csv voice_csvs/kor-msft.csv
+    python3 gen_tts_msft.py --config-dict azure-voices.json --prompts-file tts-prompts/arctic/arctic-kor-lines.txt --wav-dir tts-audio/kor/ --lang ko-KR --out-csv voice_csvs/kor-msft.csv
     """

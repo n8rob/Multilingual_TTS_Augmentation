@@ -28,7 +28,7 @@ def create_wav(text, speech_key, speech_region, voice_name, wav_file, verbose=Tr
 def check_zero_byte_audio_files(dir_path: str, fn_template: str, expect_num: int):
     zero_byte_files = []
     numbers = []
-    for i in range(expecte_num):
+    for i in range(expect_num):
         no = str(i).zfill(5)
         filename = fn_template.format(no)
         file_path = os.path.join(dir_path, filename)
