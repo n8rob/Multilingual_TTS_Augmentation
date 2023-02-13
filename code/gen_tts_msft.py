@@ -59,7 +59,8 @@ def gen_tts(args):
             no2voice[no] = voice_name
             print(i, end=' ', flush=True)
         print()
-        indices = check_zero_byte_audio_files(args.wav_dir)
+        __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+                fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     # Print number voice matches to out csv file -----------------------
     with open(args.out_csv, 'w') as f:
         for no in no2voice:

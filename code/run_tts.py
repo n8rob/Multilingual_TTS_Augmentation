@@ -25,14 +25,20 @@ def create_wav(text, speech_key, speech_region, voice_name, wav_file, verbose=Tr
                     print("Error details: {}".format(cancellation_details.error_details))
                     print("Did you set the speech resource key and region values?")
 
-def check_zero_byte_audio_files(directory_path):
+def check_zero_byte_audio_files(dir_path: str, fn_template: str, expect_num: int):
     zero_byte_files = []
     numbers = []
-    for filename in os.listdir(directory_path):
-        if filename.endswith(".wav"):
-            file_path = os.path.join(directory_path, filename)
+    for i in range(expecte_num):
+        no = str(i).zfill(5)
+        filename = fn_template.format(no)
+        file_path = os.path.join(dir_path, filename)
+        if not os.path.exists(file_path):
+            zero_byte_files.append(filename)
+            numbers.append(i)
+            continue
+        else:
             if os.path.getsize(file_path) == 0:
                 zero_byte_files.append(filename)
-                numbers.append(int(filename.split("_")[1].split(".")[0]))
+                numbers.append(i)
     return zero_byte_files, numbers
 
