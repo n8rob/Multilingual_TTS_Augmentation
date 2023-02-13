@@ -8,7 +8,6 @@ from run_tts import *
 
 MAX_ITERS = 10
 
-# create_wav(text, speech_key, speech_region, voice_name, wav_file, verbose=True)
 
 def gen_tts(args):
     """
@@ -42,6 +41,7 @@ def gen_tts(args):
     prompts = [p.strip() for p in prompts]
     # Cycle through prompts --------------------------------------------
     no2voice = {}
+    no2prompt = {}
     indices = list(range(len(prompts)))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
@@ -57,6 +57,7 @@ def gen_tts(args):
             sleep_time = round(1.5 ** I)
             time.sleep(sleep_time)
             no2voice[no] = voice_name
+            no2prompt[no] = prompt
             print(i, end=' ', flush=True)
         print()
         __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
@@ -64,7 +65,8 @@ def gen_tts(args):
     # Print number voice matches to out csv file -----------------------
     with open(args.out_csv, 'w') as f:
         for no in no2voice:
-            f.write(f"{no}, {no2voice[no]}\n")
+            f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
+    print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
     return
 
 
@@ -72,7 +74,8 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--seed", type=int, default=sum(b'lti'))
+    parser.add_argument("--seed", type=int, default=sum(b'lti'),\
+            help="Random seed")
     parser.add_argument("--config-dict", type=str, required=True,\
             help="JSON file of dictionary mapping langs to voices")
     parser.add_argument("--prompts-file", type=str, required=True,\
