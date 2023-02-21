@@ -45,15 +45,16 @@ def gen_tts(args):
     # Cycle through prompts --------------------------------------------
     no2voice = {}
     no2prompt = {}
-    indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-            fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
+    __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+            fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
+    f = open(args.out_csv, 'a')
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
         print(f"Zero-byte files left: {len(indices)}")
         for i in indices:
             prompt = prompts[i]
             no = str(i).zfill(5)
-            wav_file = os.path.join(args.wav_dir, f"{args.lang}-{no}.wav")
+            wav_file = os.path.join(args.wav_dir, f"{args.lang}_{no}.wav")
             voice_name = random.choice(voices)
             create_wav(text=prompt, speech_key=args.speech_key,\
                     speech_region=args.speech_region, voice_name=voice_name,\
@@ -62,23 +63,26 @@ def gen_tts(args):
             time.sleep(sleep_time)
             no2voice[no] = voice_name
             no2prompt[no] = prompt
+            f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
+
             print(i, end=' ', flush=True)
         print()
         __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-                fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
+                fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
         if not indices:
             print("No more 0-byte files!", flush=True)
             break
     # Print number voice matches to out csv file -----------------------
-    with open(args.out_csv, 'w') as f:
-        for no in no2voice:
-            f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
-    print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
+    # with open(args.out_csv, 'w') as f:
+    #     for no in no2voice:
+    #         f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
+    # print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
+    f.close()
     return
 
 
 if __name__ == "__main__":
-    
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--seed", type=int, default=sum(b'lti'),\
