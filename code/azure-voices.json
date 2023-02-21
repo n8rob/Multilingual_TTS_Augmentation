@@ -1,14 +1,45 @@
 {
-    "kor": {
-        "ko-KR": [
-            "ko-KR-BongJinNeural",
-            "ko-KR-GookMinNeural",
-            "ko-KR-InJoonNeural",
-            "ko-KR-JiMinNeural",
-            "ko-KR-SeoHyeonNeural",
-            "ko-KR-SoonBokNeural",
-            "ko-KR-SunHiNeural",
-            "ko-KR-YuJinNeural"
-        ]
-    }
+  "kor": {
+    "ko-KR": [
+      "ko-KR-BongJinNeural",
+      "ko-KR-GookMinNeural",
+      "ko-KR-InJoonNeural",
+      "ko-KR-JiMinNeural",
+      "ko-KR-SeoHyeonNeural",
+      "ko-KR-SoonBokNeural",
+      "ko-KR-SunHiNeural",
+      "ko-KR-YuJinNeural"
+    ]
+  },
+  "de": {
+    "de-AT": [
+      "de-AT-JonasNeural",
+      "de-AT-IngridNeural"
+    ],
+    "de-DE": [
+      "de-DE-AmalaNeural",
+      "de-DE-BerndNeural",
+      "de-DE-ChristophNeural",
+      "de-DE-ElkeNeural",
+      "de-DE-KasperNeural",
+      "de-DE-KatjaNeural",
+      "de-DE-ConradNeural",
+      "de-DE-ElkeNeural",
+      "de-DE-GiselaNeural",
+      "de-DE-KillianNeural",
+      "de-DE-KlarissaNeural",
+      "de-DE-KlausNeural",
+      "de-DE-LouisaNeural",
+      "de-DE-MajaNeural",
+      "de-DE-RalfNeural",
+      "de-DE-TanjaNeural"
+    ]
+  },
+  "hi": {
+    "hi-IN": [
+      "hi-IN-MadhurNeural",
+      "hi-IN-SwaraNeural"
+
+    ]
+  }
 }
