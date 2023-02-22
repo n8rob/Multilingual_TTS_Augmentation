@@ -10,5 +10,124 @@
             "ko-KR-SunHiNeural",
             "ko-KR-YuJinNeural"
         ]
+    },
+    "viet": {
+        "vi-VN": [
+            "vi-VN-HoaiMyNeural",
+            "vi-VN-NamMinhNeural"
+        ]
+    },
+    "span": {
+        "es-AR": [
+            "es-AR-ElenaNeural",
+            "es-AR-TomasNeural"
+        ],
+        "es-BO": [
+            "es-BO-MarceloNeural",
+            "es-BO-SofiaNeural"
+        ],
+        "es-CL": [
+            "es-CL-CatalinaNeural",
+            "es-CL-LorenzoNeural"
+        ],
+        "es-CO": [
+            "es-CO-GonzaloNeural",
+            "es-CO-SalomeNeural"
+        ],
+        "es-CR": [
+            "es-CR-JuanNeural",
+            "es-CR-MariaNeural"
+        ],
+        "es-CU": [
+            "es-CU-BelkysNeural",
+            "es-CU-ManuelNeural"
+        ],
+        "es-DO": [
+            "es-DO-EmilioNeural",
+            "es-DO-RamonaNeural"
+        ],
+        "es-EC": [
+            "es-EC-AndreaNeural",
+            "es-EC-LuisNeural"
+        ],
+        "es-ES": [
+            "es-ES-AbrilNeural",
+            "es-ES-AlvaroNeural",
+            "es-ES-ArnauNeural",
+            "es-ES-DarioNeural",
+            "es-ES-EliasNeural",
+            "es-ES-ElviraNeural",
+            "es-ES-EstrellaNeural",
+            "es-ES-IreneNeural",
+            "es-ES-LaiaNeural",
+            "es-ES-LiaNeural",
+            "es-ES-NilNeural",
+            "es-ES-SaulNeural",
+            "es-ES-TeoNeural",
+            "es-ES-TrianaNeural",
+            "es-ES-VeraNeural"
+        ],
+        "es-GQ": [
+            "es-GQ-JavierNeural",
+            "es-GQ-TeresaNeural"
+        ],
+        "es-GT": [
+            "es-GT-AndresNeural",
+            "es-GT-MartaNeural"
+        ],
+        "es-HN": [
+            "es-HN-CarlosNeural",
+            "es-HN-KarlaNeural"
+        ],
+        "es-MX": [
+            "es-MX-BeatrizNeural",
+            "es-MX-CandelaNeural",
+            "es-MX-CarlotaNeural",
+            "es-MX-CecilioNeural",
+            "es-MX-DaliaNeural",
+            "es-MX-GerardoNeural",
+            "es-MX-JorgeNeural",
+            "es-MX-LarissaNeural",
+            "es-MX-LibertoNeural",
+            "es-MX-LucianoNeural",
+            "es-MX-MarinaNeural",
+            "es-MX-NuriaNeural",
+            "es-MX-PelayoNeural",
+            "es-MX-RenataNeural",
+            "es-MX-YagoNeural"
+        ],
+        "es-NI": [
+            "es-NI-FedericoNeural",
+            "es-NI-YolandaNeural"
+        ],
+        "es-PA": [
+            "es-PA-MargaritaNeural",
+            "es-PA-RobertoNeural"
+        ],
+        "es-PE": [
+            "es-PE-AlexNeural",
+            "es-PE-CamilaNeural"
+        ],
+        "es-PR": [
+            "es-PR-KarinaNeural",
+            "es-PR-VictorNeural"
+        ],
+        "es-PY": [
+            "es-PY-MarioNeural",
+            "es-PY-TaniaNeural"
+        ],
+        "es-SV": [
+            "es-SV-LorenaNeural",
+            "es-SV-RodrigoNeural"
+        ],
+        "es-UY": [
+            "es-UY-MateoNeural",
+            "es-UY-ValentinaNeural"
+        ],
+        "es-VE": [
+            "es-VE-PaolaNeural",
+            "es-VE-SebastianNeural"
+        ]
+        
     }
 }

@@ -24,6 +24,7 @@ def gen_tts(args):
     # Make dirs --------------------------------------------------------
     if not os.path.exists(args.wav_dir):
         os.makedirs(args.wav_dir)
+    assert os.path.isdir(os.path.dirname(args.out_csv)), out_csv
     # Set seed ---------------------------------------------------------
     random.seed(args.seed)
     # Retrieve voices list ---------------------------------------------
@@ -45,7 +46,7 @@ def gen_tts(args):
     # Cycle through prompts --------------------------------------------
     no2voice = {}
     no2prompt = {}
-    indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+    _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
             fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
