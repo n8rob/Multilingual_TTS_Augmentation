@@ -3,8 +3,10 @@ import json
 import os
 import random
 import time
+import pickle as pkl
 
 from run_tts import *
+from write_csv import pkl2csv
 
 MAX_ITERS = 10
 
@@ -24,6 +26,14 @@ def gen_tts(args):
     # Make dirs --------------------------------------------------------
     if not os.path.exists(args.wav_dir):
         os.makedirs(args.wav_dir)
+        print("Written dir", args.wav_dir, flush=True)
+    csv_dir = os.path.split(args.out_csv)[0]
+    if not os.path.exists(csv_dir):
+        os.makedirs(csv_dir)
+        print("Written dir", csv_dir, flush=True)
+    assert args.out_csv.endswith('.csv'), "Must use .csv extension for"\
+            " out-csv"
+    mapping_pkl = args.out_csv[:-4] + "_no2voice.pkl"
     # Set seed ---------------------------------------------------------
     random.seed(args.seed)
     # Retrieve voices list ---------------------------------------------
@@ -43,11 +53,15 @@ def gen_tts(args):
         prompts = f.readlines()
     prompts = [p.strip() for p in prompts]
     # Cycle through prompts --------------------------------------------
-    no2voice = {}
-    no2prompt = {}
+
+    if os.path.exists(mapping_pkl):
+        with open(mapping_pkl, 'rb') as f:
+            no2voice, no2prompt = pkl.load(f)
+    else:
+        no2voice = {}
+        no2prompt = {}
     __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-            fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
-    f = open(args.out_csv, 'a')
+            fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
         print(f"Zero-byte files left: {len(indices)}")
@@ -63,8 +77,8 @@ def gen_tts(args):
             time.sleep(sleep_time)
             no2voice[no] = voice_name
             no2prompt[no] = prompt
-            f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
-
+            with open(mapping_pkl, 'wb') as f:
+                pkl.dump((no2voice, no2prompt), f)
             print(i, end=' ', flush=True)
         print()
         __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
@@ -73,11 +87,8 @@ def gen_tts(args):
             print("No more 0-byte files!", flush=True)
             break
     # Print number voice matches to out csv file -----------------------
-    # with open(args.out_csv, 'w') as f:
-    #     for no in no2voice:
-    #         f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
-    # print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
-    f.close()
+
+    pkl2csv(no2voice=no2voice, no2prompt=no2prompt, out_csv=args.out_csv)
     return
 
 
@@ -108,5 +119,5 @@ if __name__ == "__main__":
     gen_tts(args)
 
     """
-    python3 gen_tts_msft.py --config-dict azure-voices.json --prompts-file tts-prompts/arctic/arctic-kor-lines.txt --wav-dir tts-audio/kor/ --lang ko-KR --out-csv voice_csvs/kor-msft.csv
+    python3 gen_tts_msft.py --config-dict azure-voices.json --prompts-file tts-prompts/arctic/arctic-kor-lines.txt --wav-dir tts-audio/kor/ --lang kor --out-csv voice_csvs/kor-msft.csv --speech-key XXXXXXXXXXXXXX --speech-reagion eastus
     """
