@@ -58,7 +58,7 @@ def gen_tts(args):
     else:
         no2voice = {}
         no2prompt = {}
-    indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+    __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
             fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
