@@ -176,5 +176,71 @@
           "hi-IN-SwaraNeural"
     
         ]
+    },
+    "ar": {
+        "ar-AR": [
+        "ar-AE-FatimaNeural",
+        "ar-AE-HamdanNeural"
+        ],
+        "ar-BH": [
+        "ar-BH-AliNeural",
+        "ar-BH-LailaNeural"
+        ],
+        "ar-DZ": [
+        "ar-DZ-AminaNeural",
+        "ar-DZ-IsmaelNeural"
+        ],
+        "ar-EG": [
+        "ar-EG-SalmaNeural",
+        "ar-EG-ShakirNeural"
+        ],
+        "ar-IQ": [
+        "ar-IQ-BasselNeural",
+        "ar-IQ-RanaNeural"
+        ],
+        "ar-JO": [
+        "ar-JO-SanaNeural",
+        "ar-JO-TaimNeural4"
+        ],
+        "ar-KW": [
+        "ar-KW-FahedNeural",
+        "ar-KW-NouraNeural"
+        ],
+        "ar-LB": [
+        "ar-LB-LaylaNeural",
+        "ar-LB-RamiNeural"
+        ],
+        "ar-LY": [
+        "ar-LY-ImanNeural",
+        "ar-LY-OmarNeural"
+        ],
+        "ar-MA": [
+        "ar-MA-JamalNeural",
+        "ar-MA-MounaNeural"
+        ],
+        "ar-OM": [
+        "ar-OM-AbdullahNeural",
+        "ar-OM-AyshaNeural"
+        ],
+        "ar-QA": [
+        "ar-QA-AmalNeural",
+        "ar-QA-MoazNeural"
+        ],
+        "ar-SA": [
+        "ar-SA-HamedNeural",
+        "ar-SA-ZariyahNeural"
+        ],
+        "ar-SY": [
+        "ar-SY-AmanyNeural",
+        "ar-SY-LaithNeural"
+        ],
+        "ar-TN": [
+        "ar-TN-HediNeural",
+        "ar-TN-ReemNeural"
+        ],
+        "ar-YE": [
+        "ar-YE-MaryamNeural",
+        "ar-YE-SalehNeural"
+        ]
     }
 }

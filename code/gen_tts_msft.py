@@ -3,6 +3,7 @@ import json
 import os
 import random
 import time
+import pickle as pkl
 
 from run_tts import *
 from write_csv import pkl2csv
@@ -54,6 +55,7 @@ def gen_tts(args):
         prompts = f.readlines()
     prompts = [p.strip() for p in prompts]
     # Cycle through prompts --------------------------------------------
+
     if os.path.exists(mapping_pkl):
         with open(mapping_pkl, 'rb') as f:
             no2voice, no2prompt = pkl.load(f)
@@ -68,7 +70,7 @@ def gen_tts(args):
         for i in indices:
             prompt = prompts[i]
             no = str(i).zfill(5)
-            wav_file = os.path.join(args.wav_dir, f"{args.lang}-{no}.wav")
+            wav_file = os.path.join(args.wav_dir, f"{args.lang}_{no}.wav")
             voice_name = random.choice(voices)
             create_wav(text=prompt, speech_key=args.speech_key,\
                     speech_region=args.speech_region, voice_name=voice_name,\
@@ -82,17 +84,18 @@ def gen_tts(args):
             print(i, end=' ', flush=True)
         print()
         __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-                fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
+                fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
         if not indices:
             print("No more 0-byte files!", flush=True)
             break
     # Print number voice matches to out csv file -----------------------
+
     pkl2csv(no2voice=no2voice, no2prompt=no2prompt, out_csv=args.out_csv)
     return
 
 
 if __name__ == "__main__":
-    
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--seed", type=int, default=sum(b'lti'),\
