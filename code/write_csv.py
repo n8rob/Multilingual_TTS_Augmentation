@@ -5,8 +5,10 @@ import pickle as pkl
 def pkl2csv(no2voice, no2prompt, out_csv):
     with open(out_csv, 'w') as f:
         for no in no2voice:
-            f.write(f"{no}, {no2voice[no]}, {no2prompt[no]}\n")
-    print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
+            txt = ' '.join(no2prompt[no]).replace('...', ' ')
+            txt = re.sub("\s+", " ", txt).strip()
+            f.write(f"{no}, {no2voice[no]}, {txt}\n")
+    print(f"Written {len(no2voice)} mappings to {out_csv}", flush=True)
     return
 
 def main(args):

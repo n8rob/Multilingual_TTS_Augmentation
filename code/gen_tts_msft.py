@@ -7,6 +7,7 @@ import pickle as pkl
 
 from run_tts import *
 from write_csv import pkl2csv
+import pickle as pkl
 
 MAX_ITERS = 10
 
@@ -34,6 +35,7 @@ def gen_tts(args):
     assert args.out_csv.endswith('.csv'), "Must use .csv extension for"\
             " out-csv"
     mapping_pkl = args.out_csv[:-4] + "_no2voice.pkl"
+    assert os.path.isdir(os.path.dirname(args.out_csv)), out_csv
     # Set seed ---------------------------------------------------------
     random.seed(args.seed)
     # Retrieve voices list ---------------------------------------------
@@ -60,7 +62,7 @@ def gen_tts(args):
     else:
         no2voice = {}
         no2prompt = {}
-    __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+    _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
             fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
@@ -73,7 +75,7 @@ def gen_tts(args):
             create_wav(text=prompt, speech_key=args.speech_key,\
                     speech_region=args.speech_region, voice_name=voice_name,\
                     wav_file=wav_file, verbose=False)
-            sleep_time = round(1.5 ** I)
+            sleep_time = round(.4  + I)
             time.sleep(sleep_time)
             no2voice[no] = voice_name
             no2prompt[no] = prompt
