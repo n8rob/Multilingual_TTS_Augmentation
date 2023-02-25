@@ -91,6 +91,7 @@ def gen_tts(args):
     # Print number voice matches to out csv file -----------------------
 
     pkl2csv(no2voice=no2voice, no2prompt=no2prompt, out_csv=args.out_csv)
+    print(f"Written {len(no2voice)} mappings to {args.out_csv}", flush=True)
     return
 
 
