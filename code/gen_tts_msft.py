@@ -83,7 +83,7 @@ def gen_tts(args):
                 pkl.dump((no2voice, no2prompt), f)
             print(i, end=' ', flush=True)
         print()
-        __, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+        _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
                 fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
         if not indices:
             print("No more 0-byte files!", flush=True)

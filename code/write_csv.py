@@ -1,11 +1,12 @@
 import argparse
 import os
 import pickle as pkl
+import re
 
 def pkl2csv(no2voice, no2prompt, out_csv):
     with open(out_csv, 'w') as f:
         for no in no2voice:
-            txt = ' '.join(no2prompt[no]).replace('...', ' ')
+            txt = ' '.join(no2prompt[no].split(",")).replace('...', ' ')
             txt = re.sub("\s+", " ", txt).strip()
             f.write(f"{no}, {no2voice[no]}, {txt}\n")
     print(f"Written {len(no2voice)} mappings to {out_csv}", flush=True)
