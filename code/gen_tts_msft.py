@@ -64,10 +64,11 @@ def gen_tts(args):
     else:
         no2voice = {}
         no2prompt = {}
-    _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-            fn_template=args.lang + "-{}.wav", expect_num=len(prompts))
     SPEAKERS_TO_SAMPLE = args.speakers_per_prompt if \
         args.speakers_per_prompt < len(voices) else len(voices)
+    _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
+            fn_template=args.lang + "_{}.wav", \
+                expect_num=len(prompts)*SPEAKERS_TO_SAMPLE)
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
         print(f"Zero-byte files left: {len(indices)}")
