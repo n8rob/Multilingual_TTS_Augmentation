@@ -5,6 +5,12 @@ import random
 import time
 import pickle as pkl
 
+try:
+    from tqdm import tqdm
+except ImportError:
+    print("WARNING: tqdm not installed. You can install it with pip install tqdm")
+    tqdm = lambda x: x
+
 from run_tts import (
     check_zero_byte_audio_files,
     create_wav
@@ -72,7 +78,7 @@ def gen_tts(args):
     for I in range(MAX_ITERS):
         print(f"~-~-~-~ {I} -~-~-~-", flush=True)
         print(f"Zero-byte files left: {len(indices)}")
-        for i in indices:
+        for i in tqdm(indices):
             prompt = prompts[i]
             # voice_names = random.sample(voices, SPEAKERS_TO_SAMPLE)
             random.shuffle(voices)
@@ -81,19 +87,24 @@ def gen_tts(args):
                 no = f"{str(i).zfill(5)}_spk{v_id}"
                 # voice_name = random.choice(voices)
                 wav_file = os.path.join(args.wav_dir, f"{args.lang}_{no}.wav")
-                create_wav(text=prompt, speech_key=args.speech_key,\
-                        speech_region=args.speech_region, voice_name=voice_name,\
-                        wav_file=wav_file, verbose=False)
-                sleep_time = round(.3  + I)
-                time.sleep(sleep_time)
+                if os.path.isfile(wav_file) and os.path.getsize(wav_file) == 0:
+                    os.unlink(wav_file)  # Remove 0-byte files
+                if not os.path.isfile(wav_file):
+                    create_wav(text=prompt, speech_key=args.speech_key,\
+                            speech_region=args.speech_region, voice_name=voice_name,\
+                            wav_file=wav_file, verbose=False)
+                    sleep_time = round(.3  + I)
+                    time.sleep(sleep_time)
                 no2voice[no] = voice_name
                 no2prompt[no] = prompt
-            with open(mapping_pkl, 'wb') as f:
-                pkl.dump((no2voice, no2prompt), f)
-            print(i, end=' ', flush=True)
+            if i % 20 == 0:  # Save every 20 prompts
+                with open(mapping_pkl, 'wb') as f:
+                    pkl.dump((no2voice, no2prompt), f)
+            # print(i, end=' ', flush=True)
         print()
         _, indices = check_zero_byte_audio_files(dir_path=args.wav_dir,\
-                fn_template=args.lang + "_{}.wav", expect_num=len(prompts))
+                fn_template=args.lang + "_{}.wav", \
+                    expect_num=len(prompts)*SPEAKERS_TO_SAMPLE)
         if not indices:
             print("No more 0-byte files!", flush=True)
             break
